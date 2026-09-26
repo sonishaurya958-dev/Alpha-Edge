@@ -649,6 +649,66 @@
 
 
     /* ==========================================
+       LIVE PRICE ACTION MOTION
+       ========================================== */
+
+    /* Store the candle's original shape so the animation can
+       gently grow/shrink each candle like a moving market. */
+    candles.children.forEach((item, index) => {
+      if (item.geometry && item.geometry.parameters) {
+        item.userData.baseScaleY = 1;
+        item.userData.phase = index * 0.31;
+      }
+    });
+
+    /* A second, thinner price-action path sits in front of
+       the candles and continuously changes shape. */
+    const priceActionPoints = [];
+    const priceActionCount = 120;
+
+    for (let i = 0; i < priceActionCount; i++) {
+      priceActionPoints.push(
+        new THREE.Vector3(
+          (i - 60) * 0.20,
+          0,
+          0.15
+        )
+      );
+    }
+
+    const priceActionGeometry =
+      new THREE.BufferGeometry().setFromPoints(priceActionPoints);
+
+    const priceActionMaterial =
+      new THREE.LineBasicMaterial({
+        color: 0x7affdc,
+        transparent: true,
+        opacity: 0.9
+      });
+
+    const priceActionLine =
+      new THREE.Line(priceActionGeometry, priceActionMaterial);
+
+    scene.add(priceActionLine);
+
+    /* Small glowing markers travel along the price-action line. */
+    const priceMarkers = [];
+    const markerGeometry = new THREE.SphereGeometry(0.045, 10, 10);
+    const markerMaterial = new THREE.MeshBasicMaterial({
+      color: 0x00e6b0,
+      transparent: true,
+      opacity: 0.9
+    });
+
+    for (let i = 0; i < 4; i++) {
+      const marker = new THREE.Mesh(markerGeometry, markerMaterial);
+      marker.userData.offset = i * 30;
+      priceMarkers.push(marker);
+      scene.add(marker);
+    }
+
+
+    /* ==========================================
        GLOWING MARKET LINE
        ========================================== */
 
@@ -793,6 +853,46 @@
       particles.rotation.y += 0.00025;
 
       candles.rotation.z += 0.0003;
+
+      /* LIVE PRICE ACTION */
+      const time = performance.now() * 0.001;
+      const pricePositions = priceActionGeometry.attributes.position.array;
+
+      for (let i = 0; i < priceActionCount; i++) {
+        const waveA = Math.sin(i * 0.20 + time * 1.15) * 0.55;
+        const waveB = Math.sin(i * 0.075 + time * 0.72) * 0.85;
+        const waveC = Math.sin(i * 0.47 - time * 0.42) * 0.18;
+        const trend = Math.sin(time * 0.22) * 0.35;
+
+        pricePositions[i * 3 + 1] = waveA + waveB + waveC + trend;
+        pricePositions[i * 3 + 2] = 0.15;
+      }
+
+      priceActionGeometry.attributes.position.needsUpdate = true;
+
+      /* Give each candle a slightly different rhythm so the market
+         feels alive rather than mechanically animated. */
+      candles.children.forEach((item, index) => {
+        if (!item.geometry || !item.geometry.parameters) return;
+
+        const pulse =
+          1 + Math.sin(time * 1.7 + item.userData.phase) * 0.10;
+
+        item.scale.y = pulse;
+      });
+
+      /* Move the glowing markers across the animated price path. */
+      priceMarkers.forEach((marker, markerIndex) => {
+        const pointIndex =
+          Math.floor((time * 18 + marker.userData.offset) % priceActionCount);
+
+        const safeIndex = Math.max(0, Math.min(priceActionCount - 1, pointIndex));
+        const px = pricePositions[safeIndex * 3];
+        const py = pricePositions[safeIndex * 3 + 1];
+
+        marker.position.set(px, py, 0.22);
+        marker.scale.setScalar(1 + Math.sin(time * 4 + markerIndex) * 0.15);
+      });
 
       camera.position.x +=
         (mouseX * 0.7 -
