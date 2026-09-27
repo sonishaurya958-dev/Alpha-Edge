@@ -796,6 +796,90 @@
       }
     });
 
+    /* ==========================================
+       VOLUME BARS + SIMULATED DECISION HUD
+       ========================================== */
+
+    const volumeGroup = new THREE.Group();
+    const volumeBars = [];
+
+    for (let i = 0; i < 42; i++) {
+      const height = 0.12 + Math.random() * 0.75;
+      const barGeometry = new THREE.BoxGeometry(0.12, height, 0.08);
+      const barMaterial = new THREE.MeshBasicMaterial({
+        color: i % 5 === 0 ? 0x7affdc : 0x00b88d,
+        transparent: true,
+        opacity: 0.28
+      });
+      const bar = new THREE.Mesh(barGeometry, barMaterial);
+      bar.position.set((i - 21) * 0.42, -2.75 + height / 2, -1.9);
+      bar.userData.baseHeight = height;
+      bar.userData.phase = i * 0.27;
+      volumeBars.push(bar);
+      volumeGroup.add(bar);
+    }
+
+    scene.add(volumeGroup);
+
+    function makeDecisionHud() {
+      const canvas = document.createElement("canvas");
+      canvas.width = 900;
+      canvas.height = 220;
+      const ctx = canvas.getContext("2d");
+
+      ctx.fillStyle = "rgba(5,10,14,0.88)";
+      ctx.roundRect(10, 10, 880, 200, 28);
+      ctx.fill();
+
+      ctx.strokeStyle = "rgba(255,255,255,0.12)";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.font = "700 24px Arial";
+      ctx.fillStyle = "#00e6b0";
+      ctx.fillText("SIMULATED MARKET DECISION", 38, 55);
+
+      ctx.font = "500 17px Arial";
+      ctx.fillStyle = "rgba(255,255,255,0.55)";
+      ctx.fillText("Choose a scenario response — virtual environment", 38, 82);
+
+      const buttons = [
+        { x: 38, label: "BUY", color: "#00e6b0" },
+        { x: 295, label: "NEUTRAL", color: "#ffffff" },
+        { x: 610, label: "SELL", color: "#ff5d76" }
+      ];
+
+      buttons.forEach(button => {
+        ctx.fillStyle = "rgba(255,255,255,0.055)";
+        ctx.roundRect(button.x, 112, 220, 62, 18);
+        ctx.fill();
+        ctx.strokeStyle = button.color;
+        ctx.globalAlpha = 0.65;
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+
+        ctx.font = "700 18px Arial";
+        ctx.fillStyle = button.color;
+        ctx.fillText(button.label, button.x + 78, 150);
+      });
+
+      const texture = new THREE.CanvasTexture(canvas);
+      const material = new THREE.SpriteMaterial({
+        map: texture,
+        transparent: true,
+        opacity: 0.0,
+        depthWrite: false
+      });
+
+      const sprite = new THREE.Sprite(material);
+      sprite.scale.set(7.0, 1.72, 1);
+      sprite.position.set(0, -3.55, 0.5);
+      return sprite;
+    }
+
+    const decisionHud = makeDecisionHud();
+    scene.add(decisionHud);
+
     const priceMarkers = [];
     const markerGeometry = new THREE.SphereGeometry(0.045, 10, 10);
     const markerMaterial = new THREE.MeshBasicMaterial({
@@ -1022,6 +1106,18 @@
           lineIndex === 1 ? resistanceFade * 0.85 :
           trendFade * 0.85;
       });
+
+      /* Animate volume beneath the price action. */
+      volumeBars.forEach((bar, index) => {
+        const pulse = 0.75 + Math.abs(Math.sin(time * 1.25 + bar.userData.phase)) * 0.65;
+        const nextHeight = bar.userData.baseHeight * pulse;
+        bar.scale.y = nextHeight / bar.userData.baseHeight;
+        bar.position.y = -2.75 + (bar.userData.baseHeight * pulse) / 2;
+      });
+
+      /* Let the decision HUD appear later in the cinematic journey. */
+      const hudFade = Math.max(0, Math.min(0.92, (scrollProgress - 0.38) * 2.2));
+      decisionHud.material.opacity = hudFade;
 
       /* Move the glowing markers across the animated price path. */
       priceMarkers.forEach((marker, markerIndex) => {
