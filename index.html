@@ -699,21 +699,24 @@
     const analysisTools = new THREE.Group();
 
     const supportMaterial = new THREE.LineBasicMaterial({
-      color: 0x00e6b0,
+      color: 0x00ffd0,
       transparent: true,
-      opacity: 0.0
+      opacity: 0.0,
+      linewidth: 3
     });
 
     const resistanceMaterial = new THREE.LineBasicMaterial({
-      color: 0xff6b7f,
+      color: 0xff4f6d,
       transparent: true,
-      opacity: 0.0
+      opacity: 0.0,
+      linewidth: 3
     });
 
     const trendMaterial = new THREE.LineBasicMaterial({
       color: 0xffffff,
       transparent: true,
-      opacity: 0.0
+      opacity: 0.0,
+      linewidth: 3
     });
 
     function createAnalysisLine(material, y, z) {
@@ -762,7 +765,7 @@
         depthWrite: false
       });
       const sprite = new THREE.Sprite(material);
-      sprite.scale.set(3.2, 0.8, 1);
+      sprite.scale.set(4.0, 1.0, 1);
       return sprite;
     }
 
@@ -988,13 +991,13 @@
       const resistanceFade = Math.max(0, Math.min(1, 1 - Math.abs(toolCycle - 1.0) * 2.5));
       const trendFade = Math.max(0, Math.min(1, 1 - Math.abs(toolCycle - 2.0) * 2.5));
 
-      supportMaterial.opacity = 0.38 * supportFade;
-      resistanceMaterial.opacity = 0.38 * resistanceFade;
-      trendMaterial.opacity = 0.32 * trendFade;
+      supportMaterial.opacity = 0.85 * supportFade;
+      resistanceMaterial.opacity = 0.85 * resistanceFade;
+      trendMaterial.opacity = 0.75 * trendFade;
 
-      supportLabel.material.opacity = supportFade * 0.78;
-      resistanceLabel.material.opacity = resistanceFade * 0.78;
-      trendLabel.material.opacity = trendFade * 0.78;
+      supportLabel.material.opacity = supportFade * 1.0;
+      resistanceLabel.material.opacity = resistanceFade * 1.0;
+      trendLabel.material.opacity = trendFade * 1.0;
 
       analysisNodes.forEach((node, index) => {
         const lineIndex = node.userData.lineIndex;
