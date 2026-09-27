@@ -691,7 +691,108 @@
 
     scene.add(priceActionLine);
 
-    /* Small glowing markers travel along the price-action line. */
+
+    /* ==========================================
+       SUPPORT / RESISTANCE / TRENDLINE MOTION
+       ========================================== */
+
+    const analysisTools = new THREE.Group();
+
+    const supportMaterial = new THREE.LineBasicMaterial({
+      color: 0x00e6b0,
+      transparent: true,
+      opacity: 0.0
+    });
+
+    const resistanceMaterial = new THREE.LineBasicMaterial({
+      color: 0xff6b7f,
+      transparent: true,
+      opacity: 0.0
+    });
+
+    const trendMaterial = new THREE.LineBasicMaterial({
+      color: 0xffffff,
+      transparent: true,
+      opacity: 0.0
+    });
+
+    function createAnalysisLine(material, y, z) {
+      const geometry = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(-10, y, z),
+        new THREE.Vector3(10, y, z)
+      ]);
+      return new THREE.Line(geometry, material);
+    }
+
+    const supportLine = createAnalysisLine(supportMaterial, -1.05, 0.08);
+    const resistanceLine = createAnalysisLine(resistanceMaterial, 1.15, 0.08);
+
+    /* Diagonal trendline */
+    const trendGeometry = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(-9, -1.15, 0.12),
+      new THREE.Vector3(8.5, 1.25, 0.12)
+    ]);
+
+    const trendLine = new THREE.Line(trendGeometry, trendMaterial);
+
+    analysisTools.add(supportLine);
+    analysisTools.add(resistanceLine);
+    analysisTools.add(trendLine);
+    scene.add(analysisTools);
+
+    /* Floating labels that fade in with the corresponding tool. */
+    function makeLabel(text, color) {
+      const canvas = document.createElement("canvas");
+      canvas.width = 512;
+      canvas.height = 128;
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.font = "700 32px Arial";
+      ctx.fillStyle = color;
+      ctx.fillText(text, 20, 58);
+      ctx.font = "500 20px Arial";
+      ctx.fillStyle = "rgba(255,255,255,0.55)";
+      ctx.fillText("MARKET ANALYSIS", 20, 92);
+
+      const texture = new THREE.CanvasTexture(canvas);
+      const material = new THREE.SpriteMaterial({
+        map: texture,
+        transparent: true,
+        opacity: 0.0,
+        depthWrite: false
+      });
+      const sprite = new THREE.Sprite(material);
+      sprite.scale.set(3.2, 0.8, 1);
+      return sprite;
+    }
+
+    const supportLabel = makeLabel("SUPPORT", "#00e6b0");
+    const resistanceLabel = makeLabel("RESISTANCE", "#ff6b7f");
+    const trendLabel = makeLabel("TRENDLINE", "#ffffff");
+
+    supportLabel.position.set(5.2, -1.0, 0.25);
+    resistanceLabel.position.set(4.6, 1.2, 0.25);
+    trendLabel.position.set(-4.4, -0.65, 0.25);
+
+    analysisTools.add(supportLabel);
+    analysisTools.add(resistanceLabel);
+    analysisTools.add(trendLabel);
+
+    /* Small analysis nodes make the lines feel like active tools. */
+    const nodeGeometry = new THREE.SphereGeometry(0.055, 12, 12);
+    const nodeMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0 });
+
+    const analysisNodes = [];
+    [supportLine, resistanceLine, trendLine].forEach((line, lineIndex) => {
+      for (let i = 0; i < 3; i++) {
+        const node = new THREE.Mesh(nodeGeometry, nodeMaterial.clone());
+        node.userData.lineIndex = lineIndex;
+        node.userData.offset = i / 2;
+        analysisNodes.push(node);
+        analysisTools.add(node);
+      }
+    });
+
     const priceMarkers = [];
     const markerGeometry = new THREE.SphereGeometry(0.045, 10, 10);
     const markerMaterial = new THREE.MeshBasicMaterial({
@@ -879,6 +980,44 @@
           1 + Math.sin(time * 1.7 + item.userData.phase) * 0.10;
 
         item.scale.y = pulse;
+      });
+
+      /* Animate the analysis tools in sequence so the scene tells a story. */
+      const toolCycle = (time * 0.16 + scrollProgress * 1.4) % 3;
+      const supportFade = Math.max(0, Math.min(1, 1 - Math.abs(toolCycle - 0.0) * 2.5));
+      const resistanceFade = Math.max(0, Math.min(1, 1 - Math.abs(toolCycle - 1.0) * 2.5));
+      const trendFade = Math.max(0, Math.min(1, 1 - Math.abs(toolCycle - 2.0) * 2.5));
+
+      supportMaterial.opacity = 0.38 * supportFade;
+      resistanceMaterial.opacity = 0.38 * resistanceFade;
+      trendMaterial.opacity = 0.32 * trendFade;
+
+      supportLabel.material.opacity = supportFade * 0.78;
+      resistanceLabel.material.opacity = resistanceFade * 0.78;
+      trendLabel.material.opacity = trendFade * 0.78;
+
+      analysisNodes.forEach((node, index) => {
+        const lineIndex = node.userData.lineIndex;
+        const phase = (time * 0.55 + node.userData.offset + index * 0.04) % 1;
+        let x;
+        let y;
+
+        if (lineIndex === 0) {
+          x = -9 + phase * 18;
+          y = -1.05;
+        } else if (lineIndex === 1) {
+          x = -9 + phase * 18;
+          y = 1.15;
+        } else {
+          x = -9 + phase * 17.5;
+          y = -1.15 + (phase * 2.4);
+        }
+
+        node.position.set(x, y, 0.2);
+        node.material.opacity =
+          lineIndex === 0 ? supportFade * 0.85 :
+          lineIndex === 1 ? resistanceFade * 0.85 :
+          trendFade * 0.85;
       });
 
       /* Move the glowing markers across the animated price path. */
