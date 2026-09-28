@@ -1407,7 +1407,7 @@
     document.getElementById("simulateOrder").addEventListener("click",()=>{
       const asset=activeSymbol(),qty=Math.max(1,Number(orderQty.value)||1),price=prices[asset]||2941.2,total=price*qty;
       if(simSide==="BUY" && total>simBalance){scenarioResult.textContent="Not enough virtual balance for this simulation.";return;}
-      if(simSide==="BUY"){simBalance-=total;const old=positions[asset]||{qty:0,avg:0};positions[asset]={qty:old.qty+qty,avg:((old.avg*old.qty)+(price*qty))/(old.qty+qty);};}
+      if(simSide==="BUY"){simBalance-=total;const old=positions[asset]||{qty:0,avg:0};positions[asset]={qty:old.qty+qty,avg:((old.avg*old.qty)+(price*qty))/(old.qty+qty)};}
       else {const old=positions[asset]||{qty:0,avg:price};positions[asset]={qty:Math.max(0,old.qty-qty),avg:old.avg};if(positions[asset].qty===0)delete positions[asset];simBalance+=Math.min(old.qty,qty)*price;}
       const time=new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
       orders.push({time,asset,side:simSide,qty});activities.push({event:"Scenario order",detail:`${simSide} ${qty} ${asset} at virtual ₹${price.toLocaleString("en-IN")}`});
