@@ -20,11 +20,7 @@
     }
 
     body {
-      background:
-        radial-gradient(circle at 50% 42%, rgba(0, 230, 176, 0.075), transparent 24%),
-        radial-gradient(circle at 82% 18%, rgba(120, 80, 255, 0.11), transparent 30%),
-        radial-gradient(circle at 12% 78%, rgba(0, 150, 255, 0.065), transparent 28%),
-        #020408;
+      background: #030609;
       color: white;
       font-family: Arial, Helvetica, sans-serif;
       overflow-x: hidden;
@@ -40,45 +36,14 @@
       display: block;
     }
 
-     .overlay {
+    .overlay {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 1;
       background:
-        radial-gradient(ellipse at 50% 48%, rgba(0, 255, 190, 0.10), transparent 30%),
-        radial-gradient(ellipse at 78% 22%, rgba(115, 75, 255, 0.12), transparent 28%),
-        radial-gradient(ellipse at 18% 78%, rgba(0, 145, 255, 0.07), transparent 25%),
-        linear-gradient(to bottom, rgba(2,4,8,0.05), rgba(2,4,8,0.58));
-    }
-
-    .overlay::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      opacity: 0.28;
-      background-image:
-        linear-gradient(rgba(0,230,176,0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,230,176,0.055) 1px, transparent 1px);
-      background-size: 90px 90px;
-      mask-image: radial-gradient(circle at 50% 48%, black 0%, transparent 68%);
-      -webkit-mask-image: radial-gradient(circle at 50% 48%, black 0%, transparent 68%);
-    }
-
-    .overlay::after {
-      content: "";
-      position: absolute;
-      inset: -20%;
-      background:
-        radial-gradient(circle at 30% 40%, rgba(0,230,176,0.08), transparent 13%),
-        radial-gradient(circle at 72% 62%, rgba(125,80,255,0.08), transparent 15%);
-      filter: blur(45px);
-      animation: ambientDrift 12s ease-in-out infinite alternate;
-    }
-
-    @keyframes ambientDrift {
-      0% { transform: translate3d(-2%, -1%, 0) scale(1); }
-      100% { transform: translate3d(2%, 1.5%, 0) scale(1.06); }
+        radial-gradient(circle at 50% 45%, rgba(0, 255, 190, 0.08), transparent 35%),
+        linear-gradient(to bottom, rgba(3, 6, 9, 0.15), rgba(3, 6, 9, 0.75));
     }
 
     header {
@@ -106,49 +71,20 @@
       letter-spacing: 1px;
     }
 
-    .alpha-lockup {
-      gap: 9px;
-      min-width: 0;
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      border: 2px solid #00e6b0;
+      display: grid;
+      place-items: center;
+      transform: rotate(45deg);
+      border-radius: 8px;
     }
-    .alpha-lockup-mark {
-      width: 43px;
-      height: 32px;
-      flex: 0 0 auto;
-    }
-    .alpha-lockup-mark svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-      filter: drop-shadow(0 0 7px rgba(0,230,176,.12));
-    }
-    .alpha-lockup-type {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      line-height: 1;
-    }
-    .alpha-wordmark {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      letter-spacing: .30em;
-      font-size: 15px;
-      font-weight: 300;
-      white-space: nowrap;
-    }
-    .alpha-wordmark span { color: #f5f7f8; }
-    .alpha-wordmark b { color: #4de0bd; font-weight: 400; }
-    .alpha-tagline {
-      font-size: 5.5px;
-      letter-spacing: .48em;
-      color: rgba(245,247,248,.72);
-      white-space: nowrap;
-      padding-left: 1px;
-    }
-    @media (max-width: 700px) {
-      .alpha-wordmark { font-size: 12px; letter-spacing: .22em; gap: 5px; }
-      .alpha-tagline { font-size: 4.5px; letter-spacing: .34em; }
-      .alpha-lockup-mark { width: 36px; height: 27px; }
+
+    .logo-mark span {
+      transform: rotate(-45deg);
+      color: #00e6b0;
+      font-weight: 800;
     }
 
     .nav {
@@ -156,35 +92,6 @@
       font-size: 13px;
       letter-spacing: 1px;
     }
-    
-    .dashboard-section{position:relative;z-index:5;min-height:100vh;padding:110px 4vw 60px;background:radial-gradient(circle at 72% 18%,rgba(0,230,176,.07),transparent 28%),linear-gradient(180deg,rgba(2,5,9,.90),rgba(2,5,9,.98));border-top:1px solid rgba(255,255,255,.07);opacity:0;transform:translateY(70px);pointer-events:none;transition:opacity .9s ease,transform .9s ease}
-    .dashboard-section.active{opacity:1;transform:translateY(0);pointer-events:auto}
-    .dash-shell{max-width:1500px;margin:0 auto}.dash-topbar{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:18px}
-    .dash-brand{display:flex;align-items:center;gap:10px}.dash-mini-mark{width:34px;height:28px}.dash-mini-mark svg{width:100%;height:100%}.dash-brand-name{font-weight:700;letter-spacing:.16em;font-size:14px}.dash-brand-name span{color:#4de0bd}
-    .sim-badge{border:1px solid rgba(77,224,189,.35);background:rgba(77,224,189,.07);color:#72f0d1;border-radius:999px;padding:8px 13px;font-size:10px;letter-spacing:.16em}
-    .dash-layout{display:grid;grid-template-columns:190px minmax(0,1fr) 285px;gap:14px}.dash-card{background:rgba(9,14,20,.76);border:1px solid rgba(255,255,255,.08);border-radius:18px;box-shadow:0 25px 80px rgba(0,0,0,.28);backdrop-filter:blur(20px)}
-    .watchlist{padding:15px}.watch-title{font-size:10px;color:rgba(255,255,255,.45);letter-spacing:.18em;margin-bottom:12px}.watch-item{width:100%;text-align:left;border:0;color:white;background:transparent;border-radius:12px;padding:12px 10px;cursor:pointer;margin-bottom:4px}.watch-item:hover,.watch-item.active{background:rgba(77,224,189,.08)}.watch-symbol{font-weight:700;font-size:12px}.watch-price{font-size:11px;color:rgba(255,255,255,.55);margin-top:4px}.watch-change{float:right;color:#4de0bd;font-size:10px}
-    .chart-card{padding:17px;min-width:0}.chart-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:14px}.asset-name{font-size:20px;font-weight:700}.asset-meta{color:rgba(255,255,255,.42);font-size:10px;margin-top:5px;letter-spacing:.08em}.asset-price{font-size:24px;font-weight:700;text-align:right}.asset-change{color:#4de0bd;font-size:11px;text-align:right;margin-top:4px}
-    .timeframes{display:flex;gap:5px;margin:0 0 12px}.tf{border:1px solid transparent;background:transparent;color:rgba(255,255,255,.45);border-radius:8px;padding:6px 9px;cursor:pointer;font-size:10px}.tf.active,.tf:hover{color:#fff;border-color:rgba(77,224,189,.25);background:rgba(77,224,189,.07)}
-    .chart-wrap{position:relative;height:470px;overflow:hidden;border-radius:13px;background:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px),rgba(3,7,12,.72);background-size:50px 50px;border:1px solid rgba(255,255,255,.055)}#marketChart{width:100%;height:100%;display:block}
-    .chart-ai-button{position:absolute;right:18px;top:18px;width:45px;height:45px;border-radius:50%;border:1px solid rgba(77,224,189,.5);background:rgba(3,12,15,.88);color:#4de0bd;box-shadow:0 0 28px rgba(77,224,189,.15);cursor:pointer;font-size:18px;transition:.25s}.chart-ai-button:hover{transform:scale(1.08);box-shadow:0 0 35px rgba(77,224,189,.3)}.chart-ai-label{position:absolute;right:14px;top:68px;font-size:8px;color:rgba(255,255,255,.4);letter-spacing:.12em}
-    .decision-row{display:flex;gap:8px;margin-top:12px}.decision-btn{flex:1;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);color:rgba(255,255,255,.75);border-radius:11px;padding:12px;cursor:pointer;font-weight:700}.decision-btn.buy:hover,.decision-btn.selected.buy{border-color:rgba(77,224,189,.55);color:#4de0bd;background:rgba(77,224,189,.08)}.decision-btn.sell:hover,.decision-btn.selected.sell{border-color:rgba(255,85,105,.55);color:#ff7180;background:rgba(255,85,105,.07)}.decision-btn.neutral:hover,.decision-btn.selected.neutral{border-color:rgba(180,195,210,.35);color:#d7e0e7;background:rgba(180,195,210,.06)}
-    .virtual-note{font-size:9px;color:rgba(255,255,255,.35);text-align:center;margin-top:10px;letter-spacing:.05em}.coach{padding:18px}.coach-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.coach-title{font-size:12px;font-weight:700;letter-spacing:.08em}.coach-dot{width:7px;height:7px;border-radius:50%;background:#4de0bd;box-shadow:0 0 12px #4de0bd}.coach-block{padding:13px 0;border-top:1px solid rgba(255,255,255,.07)}.coach-label{font-size:9px;color:rgba(255,255,255,.38);letter-spacing:.16em;margin-bottom:7px}.coach-value{font-size:12px;line-height:1.55;color:rgba(255,255,255,.76)}.coach-value strong{color:#4de0bd}.coach-hidden{display:none}.coach-open .coach-hidden{display:block}.balance{margin-top:15px;padding:14px;border-radius:14px;background:rgba(77,224,189,.045);border:1px solid rgba(77,224,189,.12)}.balance-label{font-size:9px;color:rgba(255,255,255,.4);letter-spacing:.15em}.balance-value{font-size:18px;font-weight:700;margin-top:5px}.scenario-result{margin-top:10px;min-height:18px;font-size:10px;color:#72f0d1}.dash-transition{text-align:center;margin-top:32px;color:rgba(255,255,255,.35);font-size:9px;letter-spacing:.18em}
-    .pro-market-bar{display:flex;align-items:center;gap:10px;margin:0 0 14px;padding:9px 12px;border:1px solid rgba(255,255,255,.07);border-radius:12px;background:rgba(255,255,255,.025)}
-    .market-status{width:7px;height:7px;border-radius:50%;background:#4de0bd;box-shadow:0 0 12px #4de0bd}.market-status-label{font-size:9px;letter-spacing:.12em;color:rgba(255,255,255,.5)}
-    .dash-search{margin-left:auto;width:210px;padding:9px 12px;border:1px solid rgba(255,255,255,.08);border-radius:9px;background:rgba(0,0,0,.18);color:white;outline:none;font-size:11px}
-    .pro-lower{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;margin-top:14px}.terminal-card{padding:16px}
-    .panel-tabs{display:flex;gap:5px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:12px}.panel-tab{border:0;background:transparent;color:rgba(255,255,255,.42);padding:9px 12px;font-size:9px;letter-spacing:.1em;cursor:pointer}.panel-tab.active{color:white;border-bottom:2px solid #4de0bd}
-    .data-table{width:100%;border-collapse:collapse;font-size:10px}.data-table th{text-align:left;color:rgba(255,255,255,.3);font-size:8px;letter-spacing:.12em;font-weight:500;padding:8px;border-bottom:1px solid rgba(255,255,255,.06)}.data-table td{padding:11px 8px;border-bottom:1px solid rgba(255,255,255,.045);color:rgba(255,255,255,.7)}
-    .green-text{color:#4de0bd!important}.red-text{color:#ff7180!important}.empty-row{text-align:center;color:rgba(255,255,255,.3)!important;padding:28px!important}
-    .order-ticket{padding:16px}.ticket-title{font-size:11px;font-weight:700;letter-spacing:.12em}.ticket-sub{font-size:9px;color:rgba(255,255,255,.35);margin-top:4px}.side-switch{display:flex;margin:15px 0 12px;border:1px solid rgba(255,255,255,.08);border-radius:9px;padding:3px}.side-btn{flex:1;border:0;background:transparent;color:rgba(255,255,255,.45);padding:8px;border-radius:7px;cursor:pointer;font-size:9px;font-weight:700}.side-btn.active.buy{background:rgba(77,224,189,.12);color:#4de0bd}.side-btn.active.sell{background:rgba(255,85,105,.1);color:#ff7180}
-    .field-label{font-size:8px;letter-spacing:.12em;color:rgba(255,255,255,.35);margin:12px 0 6px}.ticket-input{width:100%;box-sizing:border-box;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:10px;color:white;outline:none}.ticket-total{display:flex;justify-content:space-between;margin:14px 0;padding-top:12px;border-top:1px solid rgba(255,255,255,.07);font-size:10px}.sim-order{width:100%;border:1px solid rgba(77,224,189,.4);background:rgba(77,224,189,.08);color:#72f0d1;border-radius:9px;padding:11px;cursor:pointer;font-weight:700;font-size:10px;letter-spacing:.06em}.sim-order:hover{background:rgba(77,224,189,.14)}
-    .learning-score{margin-top:14px;padding:13px;border:1px solid rgba(255,255,255,.07);border-radius:12px;background:rgba(255,255,255,.025)}.score-head{display:flex;justify-content:space-between;font-size:9px}.score-value{color:#4de0bd;font-weight:700}.score-track{height:5px;background:rgba(255,255,255,.07);border-radius:99px;margin-top:9px;overflow:hidden}.score-fill{height:100%;width:68%;background:#4de0bd;border-radius:99px}
-    .depth{margin-top:14px}.depth-row{display:flex;justify-content:space-between;font-size:8px;color:rgba(255,255,255,.45);padding:4px 0}.depth-title{font-size:8px;color:rgba(255,255,255,.3);letter-spacing:.12em;margin-bottom:5px}
-    @media(max-width:1050px){.pro-lower{grid-template-columns:1fr}} @media(max-width:760px){.dash-search{width:120px}.pro-market-bar{flex-wrap:wrap}.pro-lower{grid-template-columns:1fr}}
-
-    @media(max-width:1050px){.dash-layout{grid-template-columns:150px minmax(0,1fr)}.coach{grid-column:1/-1}}@media(max-width:760px){.dashboard-section{padding:90px 14px 40px}.dash-layout{grid-template-columns:1fr}.watchlist{display:flex;overflow-x:auto;gap:5px}.watch-title{display:none}.watch-item{min-width:100px}.chart-wrap{height:360px}.dash-topbar{align-items:flex-start}}
-
 
     .scroll-indicator {
       position: fixed;
@@ -419,23 +326,13 @@
   <div class="overlay"></div>
 
   <header>
-    <div class="logo alpha-lockup" aria-label="Alpha Edge">
-      <div class="alpha-lockup-mark">
-        <svg viewBox="0 0 92 58" role="img" aria-hidden="true">
-          <path d="M8 52 L29 10 L50 52" fill="none" stroke="#f5f7f8" stroke-width="7" stroke-linecap="square"/>
-          <rect x="25" y="42" width="4" height="10" fill="#4de0bd"/>
-          <rect x="32" y="37" width="4" height="15" fill="#4de0bd"/>
-          <rect x="39" y="31" width="4" height="21" fill="#4de0bd"/>
-          <rect x="46" y="25" width="4" height="27" fill="#4de0bd"/>
-          <path d="M61 17 H87 L83 23 H65 Z" fill="#f5f7f8"/>
-          <path d="M65 31 H84 L81 37 H68 Z" fill="#f5f7f8"/>
-          <path d="M69 45 H87 L83 52 H73 Z" fill="#4de0bd"/>
-        </svg>
-      </div>
-      <div class="alpha-lockup-type">
-        <div class="alpha-wordmark"><span>ALPHA</span><b>EDGE</b></div>
-        <div class="alpha-tagline">LEARN. TRADE. GROW.</div>
-      </div>
+    <div class="logo">
+      <div class="logo-mark"><span>AE</span></div>
+      ALPHA EDGE
+    </div>
+
+    <div class="nav">
+      LEARN &nbsp;&nbsp; ANALYSE &nbsp;&nbsp; SIMULATE &nbsp;&nbsp; IMPROVE
     </div>
   </header>
 
@@ -447,61 +344,6 @@
   <div class="mini-label">
     EDUCATIONAL SIMULATION
   </div>
-  <section class="dashboard-section" id="dashboard">
-    <div class="dash-shell">
-      <div class="dash-topbar">
-        <div class="dash-brand"><div class="dash-mini-mark"><svg viewBox="0 0 92 58"><path d="M8 52 L29 10 L50 52" fill="none" stroke="#f5f7f8" stroke-width="7"/><rect x="25" y="42" width="4" height="10" fill="#4de0bd"/><rect x="32" y="37" width="4" height="15" fill="#4de0bd"/><rect x="39" y="31" width="4" height="21" fill="#4de0bd"/><rect x="46" y="25" width="4" height="27" fill="#4de0bd"/><path d="M61 17 H87 L83 23 H65 Z" fill="#f5f7f8"/><path d="M65 31 H84 L81 37 H68 Z" fill="#f5f7f8"/><path d="M69 45 H87 L83 52 H73 Z" fill="#4de0bd"/></svg></div><div class="dash-brand-name">ALPHA <span>EDGE</span></div></div>
-        <div class="sim-badge">SIMULATION • EDUCATIONAL MODE</div>
-      </div>
-      <div class="dash-layout">
-        <aside class="dash-card watchlist">
-          <div class="watch-title">MARKET WATCH</div>
-          <button class="watch-item active" data-symbol="RELIANCE"><span class="watch-symbol">RELIANCE</span><span class="watch-change">+1.42%</span><div class="watch-price">₹2,941.20</div></button>
-          <button class="watch-item" data-symbol="TCS"><span class="watch-symbol">TCS</span><span class="watch-change">+0.84%</span><div class="watch-price">₹3,112.50</div></button>
-          <button class="watch-item" data-symbol="INFOSYS"><span class="watch-symbol">INFOSYS</span><span class="watch-change">+1.08%</span><div class="watch-price">₹1,684.30</div></button>
-          <button class="watch-item" data-symbol="HDFCBANK"><span class="watch-symbol">HDFCBANK</span><span class="watch-change">+0.62%</span><div class="watch-price">₹1,734.10</div></button>
-          <div class="balance"><div class="balance-label">VIRTUAL BALANCE</div><div class="balance-value">₹100,000</div></div>
-        </aside>
-        <main class="dash-card chart-card">
-          <div class="chart-head"><div><div class="asset-name" id="assetName">RELIANCE</div><div class="asset-meta">SIMULATED MARKET DATA • PRACTICE MODE</div></div><div><div class="asset-price" id="assetPrice">₹2,941.20</div><div class="asset-change" id="assetChange">+1.42% • SIMULATED</div></div></div>
-          <div class="timeframes"><button class="tf active">5M</button><button class="tf">15M</button><button class="tf">1H</button><button class="tf">1D</button></div>
-          <div class="chart-wrap"><svg id="marketChart" viewBox="0 0 1000 470" preserveAspectRatio="none"></svg><button class="chart-ai-button" id="aiButton">✦</button><div class="chart-ai-label">AI EDGE COACH</div></div>
-          <div class="decision-row"><button class="decision-btn buy" data-decision="BUY">BUY SCENARIO</button><button class="decision-btn neutral" data-decision="NEUTRAL">NEUTRAL</button><button class="decision-btn sell" data-decision="SELL">SELL SCENARIO</button></div>
-          <div class="virtual-note">No real money • No brokerage connection • Decisions are simulated for learning.</div>
-          <div class="scenario-result" id="scenarioResult"></div>
-        </main>
-        <aside class="dash-card coach" id="coach">
-          <div class="coach-head"><div class="coach-title">AI EDGE COACH</div><div class="coach-dot"></div></div>
-          <div class="coach-block"><div class="coach-label">MARKET OUTLOOK</div><div class="coach-value">The simulated chart is showing a <strong>developing upward structure</strong>, but momentum alone is not confirmation.</div></div>
-          <div class="coach-block"><div class="coach-label">WHAT TO CHECK</div><div class="coach-value">Look at <strong>trend + support/resistance + volume</strong> before choosing a scenario.</div></div>
-          <div class="coach-block coach-hidden"><div class="coach-label">YOUR LAST DECISION</div><div class="coach-value" id="coachDecision">No scenario selected yet.</div></div>
-          <div class="coach-block coach-hidden"><div class="coach-label">LEARNING FEEDBACK</div><div class="coach-value" id="coachFeedback">Choose a simulated scenario below the chart to receive feedback.</div></div>
-        </aside>
-      </div>
-      <div class="pro-market-bar"><span class="market-status"></span><span class="market-status-label">SIMULATED MARKET SESSION • DATA REFRESHED FOR PRACTICE</span><input class="dash-search" id="dashSearch" placeholder="Search simulated market..." /></div>
-      <div class="pro-lower">
-        <section class="dash-card terminal-card">
-          <div class="panel-tabs"><button class="panel-tab active" data-panel="positions">POSITIONS</button><button class="panel-tab" data-panel="orders">ORDERS</button><button class="panel-tab" data-panel="activity">ACTIVITY</button></div>
-          <div id="positionsPanel">
-            <table class="data-table"><thead><tr><th>ASSET</th><th>QTY</th><th>AVG. SIM PRICE</th><th>SIM VALUE</th><th>STATUS</th></tr></thead><tbody id="positionsBody"><tr><td colspan="5" class="empty-row">No simulated positions yet. Use the practice order ticket.</td></tr></tbody></table>
-          </div>
-          <div id="ordersPanel" style="display:none"><table class="data-table"><thead><tr><th>TIME</th><th>ASSET</th><th>SIDE</th><th>QTY</th><th>STATUS</th></tr></thead><tbody id="ordersBody"><tr><td colspan="5" class="empty-row">No simulated orders yet.</td></tr></tbody></table></div>
-          <div id="activityPanel" style="display:none"><table class="data-table"><thead><tr><th>EVENT</th><th>DETAIL</th><th>TYPE</th></tr></thead><tbody id="activityBody"><tr><td colspan="3" class="empty-row">Your learning activity will appear here.</td></tr></tbody></table></div>
-        </section>
-        <aside class="dash-card order-ticket">
-          <div class="ticket-title">SIMULATION ORDER TICKET</div><div class="ticket-sub">Practice an order with virtual money.</div>
-          <div class="side-switch"><button class="side-btn active buy" data-side="BUY">BUY</button><button class="side-btn sell" data-side="SELL">SELL</button></div>
-          <div class="field-label">ASSET</div><input class="ticket-input" id="orderAsset" value="RELIANCE" readonly />
-          <div class="field-label">VIRTUAL QUANTITY</div><input class="ticket-input" id="orderQty" type="number" min="1" max="1000" value="1" />
-          <div class="ticket-total"><span>EST. SIM VALUE</span><strong id="orderTotal">₹2,941.20</strong></div>
-          <button class="sim-order" id="simulateOrder">SIMULATE ORDER</button>
-          <div class="learning-score"><div class="score-head"><span>LEARNING SCORE</span><span class="score-value" id="learningScore">68 / 100</span></div><div class="score-track"><div class="score-fill" id="scoreFill"></div></div></div>
-          <div class="depth"><div class="depth-title">SIMULATED MARKET DEPTH</div><div class="depth-row"><span>ASK 1</span><span class="red-text">₹2,944.10</span></div><div class="depth-row"><span>ASK 2</span><span class="red-text">₹2,943.40</span></div><div class="depth-row"><span>BID 1</span><span class="green-text">₹2,940.80</span></div><div class="depth-row"><span>BID 2</span><span class="green-text">₹2,940.20</span></div></div>
-        </aside>
-      </div>
-      <div class="dash-transition">ALPHA EDGE • LEARN → ANALYSE → SIMULATE → IMPROVE</div>
-    </div>
-  </section>
 
   <main>
 
@@ -711,10 +553,10 @@
 
     const particleMaterial =
       new THREE.PointsMaterial({
-        color: 0x52f5d0,
-        size: 0.04,
+        color: 0x00e6b0,
+        size: 0.035,
         transparent: true,
-        opacity: 0.52
+        opacity: 0.45
       });
 
     const particles =
@@ -1331,95 +1173,6 @@
       }
     );
 
-
-    /* ==========================================
-       ALPHA EDGE DASHBOARD
-       ========================================== */
-    const dashboard=document.getElementById("dashboard");
-    const diveButton=document.getElementById("diveButton");
-    const marketChart=document.getElementById("marketChart");
-    const coach=document.getElementById("coach");
-    const scenarioResult=document.getElementById("scenarioResult");
-    const coachDecision=document.getElementById("coachDecision");
-    const coachFeedback=document.getElementById("coachFeedback");
-
-    function showDashboard(){dashboard.classList.add("active");setTimeout(()=>dashboard.scrollIntoView({behavior:"smooth",block:"start"}),100);}
-    function drawDashboardChart(){
-      const W=1000,H=470,L=55,R=25,T=35,B=55;
-      const p=[118,132,125,146,141,158,151,172,165,181,176,194,188,207,198,214,205,224,218,237,229,248,241,260,252,271,264,283,276,294,287,307,300,318,309,329,322,341,334,352,345,365,357,376];
-      const x=i=>L+i*(W-L-R)/(p.length-1), y=v=>H-B-(v-105)*(H-T-B)/285;
-      let s="";
-      for(let i=0;i<6;i++){let gy=T+i*(H-T-B)/5;s+=`<line x1="${L}" y1="${gy}" x2="${W-R}" y2="${gy}" stroke="rgba(255,255,255,.055)"/>`;}
-      for(let i=0;i<10;i++){let gx=L+i*(W-L-R)/9;s+=`<line x1="${gx}" y1="${T}" x2="${gx}" y2="${H-B}" stroke="rgba(255,255,255,.045)"/>`;}
-      let path=p.map((v,i)=>`${i?"L":"M"} ${x(i)},${y(v)}`).join(" ");
-      s+=`<defs><linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4de0bd" stop-opacity=".55"/><stop offset="100%" stop-color="#4de0bd" stop-opacity="0"/></linearGradient></defs>`;
-      s+=`<path d="${path} L ${x(p.length-1)},${H-B} L ${x(0)},${H-B} Z" fill="url(#area)"/><path d="${path}" fill="none" stroke="#4de0bd" stroke-width="3"/>`;
-      const sy=y(210),ry=y(325);
-      s+=`<line x1="${L}" y1="${sy}" x2="${W-R}" y2="${sy}" stroke="#4de0bd" stroke-width="1.5" stroke-dasharray="8 7"/><text x="${W-145}" y="${sy-8}" fill="#4de0bd" font-size="11">SUPPORT</text>`;
-      s+=`<line x1="${L}" y1="${ry}" x2="${W-R}" y2="${ry}" stroke="#ff6374" stroke-width="1.5" stroke-dasharray="8 7"/><text x="${W-170}" y="${ry-8}" fill="#ff6374" font-size="11">RESISTANCE</text>`;
-      s+=`<line x1="${x(2)}" y1="${y(p[2])+20}" x2="${x(40)}" y2="${y(p[40])-22}" stroke="#67cfff" stroke-width="2"/><text x="${x(28)}" y="${y(p[28])-30}" fill="#67cfff" font-size="11">TRENDLINE</text>`;
-      for(let i=0;i<34;i++){let bh=10+(i%7)*5+((i*13)%17),bx=L+i*(W-L-R)/33;s+=`<rect x="${bx}" y="${H-B+4-bh}" width="8" height="${bh}" rx="2" fill="${i%5===0?"#ff6374":"#4de0bd"}" opacity=".45"/>`;}
-      s+=`<text x="${L}" y="${H-18}" fill="rgba(255,255,255,.3)" font-size="10">VOLUME</text>`;
-      marketChart.innerHTML=s;
-    }
-    drawDashboardChart();
-
-    diveButton.addEventListener("click",e=>{e.preventDefault();showDashboard();});
-    document.getElementById("aiButton").addEventListener("click",()=>coach.classList.toggle("coach-open"));
-
-    document.querySelectorAll(".watch-item").forEach(btn=>btn.addEventListener("click",()=>{
-      document.querySelectorAll(".watch-item").forEach(x=>x.classList.remove("active"));btn.classList.add("active");
-      const d={RELIANCE:["₹2,941.20","+1.42%"],TCS:["₹3,112.50","+0.84%"],INFOSYS:["₹1,684.30","+1.08%"],HDFCBANK:["₹1,734.10","+0.62%"]}[btn.dataset.symbol];
-      document.getElementById("assetName").textContent=btn.dataset.symbol;document.getElementById("assetPrice").textContent=d[0];document.getElementById("assetChange").textContent=d[1]+" • SIMULATED";drawDashboardChart();
-    }));
-    document.querySelectorAll(".tf").forEach(btn=>btn.addEventListener("click",()=>{
-      document.querySelectorAll(".tf").forEach(x=>x.classList.remove("active"));btn.classList.add("active");scenarioResult.textContent="Timeframe changed — analyse the structure before choosing a scenario.";
-    }));
-    document.querySelectorAll(".decision-btn").forEach(btn=>btn.addEventListener("click",()=>{
-      document.querySelectorAll(".decision-btn").forEach(x=>x.classList.remove("selected"));
-      btn.classList.add("selected");
-      const d=btn.dataset.decision;
-      const f={BUY:"Check whether price is respecting support and whether volume confirms the move.",NEUTRAL:"Waiting can be a valid learning decision when the setup is unclear.",SELL:"Check whether support has actually weakened before assuming a reversal."}[d];
-      scenarioResult.textContent="Scenario selected: "+d+" • Virtual only";coach.classList.add("coach-open");coachDecision.textContent="You selected the "+d+" scenario in the simulation.";coachFeedback.textContent=f;
-    }));
-
-    /* ==========================================
-       PRO SIMULATION TERMINAL
-       ========================================== */
-    let simSide="BUY", simBalance=100000, simScore=68;
-    const prices={RELIANCE:2941.20,TCS:3112.50,INFOSYS:1684.30,HDFCBANK:1734.10};
-    const orders=[], positions={}, activities=[];
-    const orderAsset=document.getElementById("orderAsset"), orderQty=document.getElementById("orderQty"), orderTotal=document.getElementById("orderTotal");
-    const balanceEl=document.querySelector(".balance-value"), ordersBody=document.getElementById("ordersBody"), positionsBody=document.getElementById("positionsBody"), activityBody=document.getElementById("activityBody");
-
-    function activeSymbol(){return document.getElementById("assetName").textContent;}
-    function updateOrderTotal(){const p=prices[activeSymbol()]||2941.2;orderTotal.textContent="₹"+(p*Math.max(1,Number(orderQty.value)||1)).toLocaleString("en-IN",{maximumFractionDigits:2});}
-    orderQty.addEventListener("input",updateOrderTotal);
-    document.querySelectorAll(".side-btn").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".side-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");simSide=b.dataset.side;}));
-
-    function renderTables(){
-      ordersBody.innerHTML=orders.length?orders.slice().reverse().map(o=>`<tr><td>${o.time}</td><td>${o.asset}</td><td class="${o.side==="BUY"?"green-text":"red-text"}">${o.side}</td><td>${o.qty}</td><td class="green-text">SIMULATED</td></tr>`).join(""):'<tr><td colspan="5" class="empty-row">No simulated orders yet.</td></tr>';
-      const keys=Object.keys(positions);
-      positionsBody.innerHTML=keys.length?keys.map(k=>{const p=positions[k];return `<tr><td>${k}</td><td>${p.qty}</td><td>₹${p.avg.toLocaleString("en-IN",{maximumFractionDigits:2})}</td><td>₹${(p.qty*(prices[k]||p.avg)).toLocaleString("en-IN",{maximumFractionDigits:2})}</td><td class="green-text">PRACTICE</td></tr>`}).join(""):'<tr><td colspan="5" class="empty-row">No simulated positions yet. Use the practice order ticket.</td></tr>';
-      activityBody.innerHTML=activities.length?activities.slice().reverse().map(a=>`<tr><td>${a.event}</td><td>${a.detail}</td><td>LEARNING</td></tr>`).join(""):'<tr><td colspan="3" class="empty-row">Your learning activity will appear here.</td></tr>';
-      balanceEl.textContent="₹"+Math.round(simBalance).toLocaleString("en-IN");
-    }
-    document.getElementById("simulateOrder").addEventListener("click",()=>{
-      const asset=activeSymbol(),qty=Math.max(1,Number(orderQty.value)||1),price=prices[asset]||2941.2,total=price*qty;
-      if(simSide==="BUY" && total>simBalance){scenarioResult.textContent="Not enough virtual balance for this simulation.";return;}
-      if(simSide==="BUY"){simBalance-=total;const old=positions[asset]||{qty:0,avg:0};positions[asset]={qty:old.qty+qty,avg:((old.avg*old.qty)+(price*qty))/(old.qty+qty)};}
-      else {const old=positions[asset]||{qty:0,avg:price};positions[asset]={qty:Math.max(0,old.qty-qty),avg:old.avg};if(positions[asset].qty===0)delete positions[asset];simBalance+=Math.min(old.qty,qty)*price;}
-      const time=new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
-      orders.push({time,asset,side:simSide,qty});activities.push({event:"Scenario order",detail:`${simSide} ${qty} ${asset} at virtual ₹${price.toLocaleString("en-IN")}`});
-      simScore=Math.min(100,simScore+2);document.getElementById("learningScore").textContent=simScore+" / 100";document.getElementById("scoreFill").style.width=simScore+"%";
-      scenarioResult.textContent="Simulated order recorded • no real money used.";renderTables();
-    });
-    document.querySelectorAll(".panel-tab").forEach(tab=>tab.addEventListener("click",()=>{
-      document.querySelectorAll(".panel-tab").forEach(x=>x.classList.remove("active"));tab.classList.add("active");
-      ["positions","orders","activity"].forEach(p=>document.getElementById(p+"Panel").style.display=tab.dataset.panel===p?"block":"none");
-    }));
-    document.querySelectorAll(".watch-item").forEach(btn=>btn.addEventListener("click",()=>{orderAsset.value=btn.dataset.symbol;updateOrderTotal();}));
-    renderTables();updateOrderTotal();
 
     /* ==========================================
        TEMPORARY DIVE BUTTON
